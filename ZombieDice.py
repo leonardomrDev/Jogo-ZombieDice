@@ -1,7 +1,6 @@
 # Leonardo Martins Ribeiro
 # Análise e Desenvolvimento de Sistemas
 
-from email.policy import default
 import time
 import random
 #import numpy as np ### ambos imports para trocar o random
