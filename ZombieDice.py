@@ -35,10 +35,9 @@ passos = 0
 cerebros = 0
 
 def copoDados():
-    global listaDados
+    global listaDados, listaDados_original
     listaDados = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
                     dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
-    global listaDados_original
     listaDados_original = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
                             dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
 copoDados()
@@ -100,15 +99,18 @@ while True:
 
     for i in range(0, 3):
 
-        valorSorteado = random.randint(0, len(listaDados)) # Int Random
-        dadoSorteado = listaDados[valorSorteado] # Utiliza o valor do Int Random para buscar um valor na lista de dados
+        def sorteioDados():
+            global valorSorteado, dadoSorteado
+            valorSorteado = random.randint(0, len(listaDados)) # Int Random
+            dadoSorteado = listaDados[valorSorteado] # Utiliza o valor do Int Random para buscar um valor na lista de dados
+        sorteioDados()
         
         print(dadoSorteado)
         
         time.sleep(0.7)
 
         # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
-        def sorteioDados():
+        def sorteioCorDados():
             global corDado
             if (dadoSorteado == dadoVerde):
                 corDado = "VERDE"
@@ -116,7 +118,7 @@ while True:
                 corDado = "AMARELO"
             else:
                 corDado = "VERMELHO"
-        sorteioDados()
+        sorteioCorDados()
         ####################################################################################
 
         time.sleep(0.5)
@@ -137,14 +139,13 @@ while True:
         
         print("\n")
 
-        def printDados():
+        def printDadosLista():
             time.sleep(0.6)
             print("Dados no Copo: ")
             print("\n")
             time.sleep(0.6)
             print(listaDados)
-
-        printDados()
+        printDadosLista()
 
         print("\n")
 
@@ -154,24 +155,26 @@ while True:
     # PARA CADA DADO, ATRIBUI UM VALOR RANDOMICO PARA SELECIONAR UMA FACE
     # E ATRIBUI O VALOR DA FACE PARA O SIMPLES CONTADOR
 
-    for dadoSorteado in dadosSorteados:
-
-        nroFaces = random.randint(0, 5) # Atribui um int para escolher a face
-        # Condicional para pegar a face correta utilizando o int randomizado
-        if dadoSorteado[nroFaces] == "C": # Se o valor randomizado cair na face "C"
-            cerebros = cerebros + 1 # Atualiza o Contador
-            print("Você comeu cérebro!".format(cerebros))
-            time.sleep(0.8)    
-        elif dadoSorteado[nroFaces] == "T": # Se o valor randomizado cair na face "T"
-            tiros = tiros + 1 # Atualiza o Contador
-            print("Você levou tiro!".format(tiros))
-            time.sleep(0.8)
-        else: # Caso não seja nenhum dos últimos casos então caiu "P"
-            passos = passos + 1 # Atualiza o Contador
-            print("Vítima escapou!")
+    def sorteioFaceDados():
+        for dadoSorteado in dadosSorteados:
+            global nroFaces, cerebros, tiros, passos
+            nroFaces = random.randint(0, 5) # Atribui um int para escolher a face
+            # Condicional para pegar a face correta utilizando o int randomizado
+            if dadoSorteado[nroFaces] == "C": # Se o valor randomizado cair na face "C"
+                cerebros = cerebros + 1 # Atualiza o Contador
+                print("Você comeu cérebro!".format(cerebros))
+                time.sleep(0.8)    
+            elif dadoSorteado[nroFaces] == "T": # Se o valor randomizado cair na face "T"
+                tiros = tiros + 1 # Atualiza o Contador
+                print("Você levou tiro!".format(tiros))
+                time.sleep(0.8)
+            else: # Caso não seja nenhum dos últimos casos então caiu "P"
+                passos = passos + 1 # Atualiza o Contador
+                print("Vítima escapou!")
+    sorteioFaceDados()
 
     #######################################################################
-    
+
     def score():
         time.sleep(0.5)
         print("\n")
@@ -186,9 +189,6 @@ while True:
         time.sleep(0.5)
 
         print("\n")
-
-    # Chamando as Funções Criadas
-
     score()
 
     # Escolha do jogador, rolar dados novamente ou passar para o próximo.
@@ -200,21 +200,23 @@ while True:
 
     # Condicional para caso a escolha do input seja não,
     # Ele reseta o valor do contador de placar e roda para o próximo jogador.
-
-    if continuarTurno == 'n':
-        jogadorAtual = jogadorAtual + 1
-        dadosSorteados = []
-        listaDados = listaDados_original
-        tiros = 0
-        cerebros = 0
-        passos = 0
-        # Se o jogador atual for o mesmo que a quantia de jogador
-        # Para o funcionamento do código, pois é o último jogador
-        if jogadorAtual == nrojogadores:
-            print("FIM DE JOGO!")
-            break
-    # Condicional Else para caso a resposta seja sim
-    # Rodar o jogo novamente para o mesmo jogador.
-    else:
-      print("Rolando os dados novamente...")
-      dadosSorteados = [] # Limpa a lista contendo dados sorteados
+    def fimTurno():
+        global jogadorAtual, nrojogadores, dadosSorteados, listaDados, listaDados_original, tiros, cerebros, passos
+        if continuarTurno == 'n':
+            jogadorAtual = jogadorAtual + 1
+            dadosSorteados = []
+            listaDados = listaDados_original
+            tiros = 0
+            cerebros = 0
+            passos = 0
+            # Se o jogador atual for o mesmo que a quantia de jogador
+            # Para o funcionamento do código, pois é o último jogador
+            if jogadorAtual == nrojogadores:
+                print("FIM DE JOGO!")
+                quit
+        # Condicional Else para caso a resposta seja sim
+        # Rodar o jogo novamente para o mesmo jogador.
+        else:
+            print("Rolando os dados novamente...")
+            dadosSorteados = [] # Limpa a lista contendo dados sorteados
+    fimTurno()        
