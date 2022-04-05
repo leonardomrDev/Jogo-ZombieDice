@@ -63,22 +63,14 @@ for i in range(nrojogadores):
 time.sleep(0.5)
 
 print("#################### INICIANDO O JOGO! ####################")
-
 print('\n')
-
 time.sleep(0.35)
-
 print("Dados no Copo: ")
-
 print("\n")
-
 time.sleep(0.35)
-
 print(listaDados)
-
 time.sleep(0.35)
 print("\n")
-
 print(jogadores) # Para teste, mostra lista de jogadores
 
 time.sleep(0.5)
@@ -164,19 +156,24 @@ while True:
             passos = passos + 1 # Atualiza o Contador
             print("Vítima escapou!")
     #######################################################################
+    def score():
+        time.sleep(0.5)
+        print("\n")
+        print("########## PONTUAÇÂO ATUAL ##########")
+        print("\n")
 
-    time.sleep(0.5)
-    print("\n")
-    print("########## PONTUAÇÂO ATUAL ##########")
-    print("\n")
-    time.sleep(0.5)
-    print("CÉREBROS: {}".format(cerebros)) # UTILIZA VALOR DO CONTADOR ATUALIZADO ANTERIORMENTE PARA O PLACAR
-    time.sleep(0.5)
-    print("TIROS: {}".format(tiros)) # UTILIZA VALOR DO CONTADOR ATUALIZADO ANTERIORMENTE PARA O PLACAR
+        time.sleep(0.5)
+        print("CÉREBROS: {}".format(cerebros)) # UTILIZA VALOR DO CONTADOR ATUALIZADO ANTERIORMENTE PARA O PLACAR
+        time.sleep(0.5)
+        print("TIROS: {}".format(tiros)) # UTILIZA VALOR DO CONTADOR ATUALIZADO ANTERIORMENTE PARA O PLACAR
 
-    time.sleep(0.5)
+        time.sleep(0.5)
 
-    print("\n")
+        print("\n")
+
+    # Chamando as Funções Criadas
+
+    score()
 
     # Escolha do jogador, rolar dados novamente ou passar para o próximo.
     continuarTurno = input("Você deseja rolar os dados novamente? Não para passar os dados para o próximo jogador (s = sim | n = não): ")
@@ -191,6 +188,7 @@ while True:
     if continuarTurno == 'n':
         jogadorAtual = jogadorAtual + 1
         dadosSorteados = []
+        listaDados = listaDados_original
         tiros = 0
         cerebros = 0
         passos = 0
