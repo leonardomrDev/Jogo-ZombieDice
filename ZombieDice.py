@@ -1,8 +1,6 @@
 # Leonardo Martins Ribeiro
 # Análise e Desenvolvimento de Sistemas
 
-from asyncio import sleep
-from email.policy import default
 import time
 import random
 #import numpy as np ### ambos imports para trocar o random
@@ -36,11 +34,14 @@ tiros = 0
 passos = 0
 cerebros = 0
 
-listaDados = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
-              dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
-listaDados_original = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
-                       dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
-
+def copoDados():
+    global listaDados
+    listaDados = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
+                    dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
+    global listaDados_original
+    listaDados_original = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
+                            dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
+copoDados()
 ###############################################################################################
 
 print ("\n")
@@ -107,7 +108,7 @@ while True:
         time.sleep(0.7)
 
         # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
-
+    
         if (dadoSorteado == dadoVerde):
             corDado = "VERDE"
         elif (dadoSorteado == dadoAmarelo):
