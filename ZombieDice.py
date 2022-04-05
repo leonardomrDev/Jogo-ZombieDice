@@ -108,30 +108,43 @@ while True:
         time.sleep(0.7)
 
         # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
-    
-        if (dadoSorteado == dadoVerde):
-            corDado = "VERDE"
-        elif (dadoSorteado == dadoAmarelo):
-            corDado = "AMARELO"
-        else:
-            corDado = "VERMELHO"
+        def sorteioDados():
+            global corDado
+            if (dadoSorteado == dadoVerde):
+                corDado = "VERDE"
+            elif (dadoSorteado == dadoAmarelo):
+                corDado = "AMARELO"
+            else:
+                corDado = "VERMELHO"
+        sorteioDados()
         ####################################################################################
 
         time.sleep(0.5)
 
         print("\n")
 
-        print("Dado Sorteado é: " + corDado)
-        dadosSorteados.append(dadoSorteado)
-        listaDados.remove(dadoSorteado)
+        def printDadoSorteado():
+            print("Dado Sorteado é: " + corDado)
+        printDadoSorteado()
+
+        def addDadosLista():
+            dadosSorteados.append(dadoSorteado)
+        addDadosLista()
+
+        def removeDadosLista():
+            listaDados.remove(dadoSorteado)
+        removeDadosLista()
         
         print("\n")
 
-        time.sleep(0.6)
-        print("Dados no Copo: ")
-        print("\n")
-        time.sleep(0.6)
-        print(listaDados)
+        def printDados():
+            time.sleep(0.6)
+            print("Dados no Copo: ")
+            print("\n")
+            time.sleep(0.6)
+            print(listaDados)
+
+        printDados()
 
         print("\n")
 
@@ -156,7 +169,9 @@ while True:
         else: # Caso não seja nenhum dos últimos casos então caiu "P"
             passos = passos + 1 # Atualiza o Contador
             print("Vítima escapou!")
+
     #######################################################################
+    
     def score():
         time.sleep(0.5)
         print("\n")
