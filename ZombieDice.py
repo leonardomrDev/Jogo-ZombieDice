@@ -1,6 +1,8 @@
 # Leonardo Martins Ribeiro
 # Análise e Desenvolvimento de Sistemas
 
+from asyncio import sleep
+from email.policy import default
 import time
 import random
 #import numpy as np ### ambos imports para trocar o random
@@ -20,9 +22,12 @@ import random
 
 # DECLARAÇÃO DAS PRINCIPAIS VARIÁVEIS:
 
-dadoVerde = "CPCTPC" # Constante contendo Faces do dado verde
-dadoAmarelo = "TPTCPT" # Constante contendo Faces do dado amarelo
-dadoVermelho = "TPTCPT" # Constante contendo Faces do dado vermelho
+#dadoVerde = "CPCTPC" # Constante contendo Faces do dado verde
+dadoVerde = ('C', 'P', 'C', 'T', 'P', 'C')
+#dadoAmarelo = "TPTCPT" # Constante contendo Faces do dado amarelo
+dadoAmarelo = ('T', 'P', 'T', 'C', 'P', 'T')
+#dadoVermelho = "TPTCPT" # Constante contendo Faces do dado vermelho
+dadoVermelho = ('T', 'P', 'T', 'C', 'P', 'T')
 jogadorAtual = 0
 nrojogadores = 0
 dadosSorteados = []
@@ -33,6 +38,8 @@ cerebros = 0
 
 listaDados = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
               dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
+listaDados_original = [dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoVerde, dadoAmarelo, 
+                       dadoAmarelo, dadoAmarelo, dadoAmarelo, dadoVermelho, dadoVermelho, dadoVermelho]
 
 ###############################################################################################
 
@@ -51,7 +58,7 @@ while nrojogadores < 2:
 # Input para atribuir um identificador para cada jogador
 for i in range(nrojogadores):
     jogador = input("Insira o nome do Jogador " + str(i + 1) + ": ");
-    jogadores.append(jogador) # Adiciona os jogadores do input na lista
+    jogadores.append({"Nome": jogador, "Cérebros": cerebros, "Tiros": tiros}) # Adiciona os jogadores do input na lista
 
 time.sleep(0.5)
 
@@ -59,7 +66,18 @@ print("#################### INICIANDO O JOGO! ####################")
 
 print('\n')
 
-time.sleep(0.25)
+time.sleep(0.35)
+
+print("Dados no Copo: ")
+
+print("\n")
+
+time.sleep(0.35)
+
+print(listaDados)
+
+time.sleep(0.35)
+print("\n")
 
 print(jogadores) # Para teste, mostra lista de jogadores
 
@@ -85,20 +103,22 @@ while True:
 
     time.sleep(0.5)
     
+    print("\n")
+
     for i in range(0, 3):
 
-        valorSorteado = random.randint(0, 12) # Int Random
+        valorSorteado = random.randint(0, len(listaDados)) # Int Random
         dadoSorteado = listaDados[valorSorteado] # Utiliza o valor do Int Random para buscar um valor na lista de dados
         
         print(dadoSorteado)
-
-        time.sleep(0.5)
+        
+        time.sleep(0.7)
 
         # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
 
-        if (dadoSorteado == 'CPCTPC'):
+        if (dadoSorteado == dadoVerde):
             corDado = "VERDE"
-        elif (dadoSorteado == 'TPCTPC'):
+        elif (dadoSorteado == dadoAmarelo):
             corDado = "AMARELO"
         else:
             corDado = "VERMELHO"
@@ -106,10 +126,23 @@ while True:
 
         time.sleep(0.5)
 
+        print("\n")
+
         print("Dado Sorteado é: " + corDado)
         dadosSorteados.append(dadoSorteado)
+        listaDados.remove(dadoSorteado)
+        
+        print("\n")
 
-        time.sleep(0.5)
+        time.sleep(0.6)
+        print("Dados no Copo: ")
+        print("\n")
+        time.sleep(0.6)
+        print(listaDados)
+
+        print("\n")
+
+        time.sleep(0.7)
 
     # REPETIÇÃO PARA CONDICIONAIS/
     # PARA CADA DADO, ATRIBUI UM VALOR RANDOMICO PARA SELECIONAR UMA FACE
