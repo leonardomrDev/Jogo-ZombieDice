@@ -58,9 +58,10 @@ while nrojogadores < 2:
 # Input para atribuir um identificador para cada jogador
 for i in range(nrojogadores):
     jogador = input("Insira o nome do Jogador " + str(i + 1) + ": ");
-    jogadores.append({"Nome": jogador, "Cérebros": cerebros, "Tiros": tiros}) # Adiciona os jogadores do input na lista
+    jogadores.append({"Nome": jogador, "Cérebros": cerebros}) # Adiciona os jogadores do input na lista
 
 time.sleep(0.5)
+print('\n')
 
 print("#################### INICIANDO O JOGO! ####################")
 print('\n')
@@ -96,68 +97,57 @@ while True:
     time.sleep(0.5)
     
     print("\n")
-
+    
     for i in range(0, 3):
-
         def sorteioDados():
-            global valorSorteado, dadoSorteado
-            valorSorteado = random.randint(0, len(listaDados)) # Int Random
+            valorSorteado = random.randint(0, len(listaDados) - 1) # Int Random
             dadoSorteado = listaDados[valorSorteado] # Utiliza o valor do Int Random para buscar um valor na lista de dados
-        sorteioDados()
-        
-        print(dadoSorteado)
-        
-        time.sleep(0.7)
+            
+            print(dadoSorteado)
+            
+            time.sleep(0.7)
 
-        # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
-        def sorteioCorDados():
-            global corDado
-            if (dadoSorteado == dadoVerde):
-                corDado = "VERDE"
-            elif (dadoSorteado == dadoAmarelo):
-                corDado = "AMARELO"
-            else:
-                corDado = "VERMELHO"
-        sorteioCorDados()
-        ####################################################################################
+            # CONDICIONAIS PARA ATRIBUIR VALOR DE FACES PARA OS DADOS SELECIONADOS ANTERIORMENTE
+            def sorteioCorDados():
+                if (dadoSorteado == dadoVerde):
+                    corDado = "VERDE"
+                elif (dadoSorteado == dadoAmarelo):
+                    corDado = "AMARELO"
+                else:
+                    corDado = "VERMELHO"
+                print("Dado Sorteado é: " + corDado)
+                return corDado
+            sorteioCorDados()
+            
+            ####################################################################################
 
-        time.sleep(0.5)
+            time.sleep(0.5)
 
-        print("\n")
-
-        def printDadoSorteado():
-            print("Dado Sorteado é: " + corDado)
-        printDadoSorteado()
-
-        def addDadosLista():
-            dadosSorteados.append(dadoSorteado)
-        addDadosLista()
-
-        def removeDadosLista():
-            listaDados.remove(dadoSorteado)
-        removeDadosLista()
-        
-        print("\n")
-
-        def printDadosLista():
-            time.sleep(0.6)
-            print("Dados no Copo: ")
             print("\n")
-            time.sleep(0.6)
-            print(listaDados)
-        printDadosLista()
 
-        print("\n")
+            def DadosLista():
+                dadosSorteados.append(dadoSorteado)
+                listaDados.remove(dadoSorteado)
+                time.sleep(0.6)
+                print("Dados no Copo: ")
+                print("\n")
+                time.sleep(0.6)
+                print(listaDados)
+            DadosLista()
 
-        time.sleep(0.7)
+            print("\n")
 
+            time.sleep(0.7)
+            return valorSorteado, dadoSorteado
+        sorteioDados()
+    
     # REPETIÇÃO PARA CONDICIONAIS/
     # PARA CADA DADO, ATRIBUI UM VALOR RANDOMICO PARA SELECIONAR UMA FACE
     # E ATRIBUI O VALOR DA FACE PARA O SIMPLES CONTADOR
 
     def sorteioFaceDados():
+        global cerebros, tiros, passos
         for dadoSorteado in dadosSorteados:
-            global nroFaces, cerebros, tiros, passos
             nroFaces = random.randint(0, 5) # Atribui um int para escolher a face
             # Condicional para pegar a face correta utilizando o int randomizado
             if dadoSorteado[nroFaces] == "C": # Se o valor randomizado cair na face "C"
@@ -171,6 +161,7 @@ while True:
             else: # Caso não seja nenhum dos últimos casos então caiu "P"
                 passos = passos + 1 # Atualiza o Contador
                 print("Vítima escapou!")
+        return nroFaces
     sorteioFaceDados()
 
     #######################################################################
@@ -202,6 +193,7 @@ while True:
     # Ele reseta o valor do contador de placar e roda para o próximo jogador.
     def fimTurno():
         global jogadorAtual, nrojogadores, dadosSorteados, listaDados, listaDados_original, tiros, cerebros, passos
+        global jogadorAtual
         if continuarTurno == 'n':
             jogadorAtual = jogadorAtual + 1
             dadosSorteados = []
@@ -213,10 +205,12 @@ while True:
             # Para o funcionamento do código, pois é o último jogador
             if jogadorAtual == nrojogadores:
                 print("FIM DE JOGO!")
+                print("SCORE FINAL: {}".format(jogadores))
                 quit
         # Condicional Else para caso a resposta seja sim
         # Rodar o jogo novamente para o mesmo jogador.
         else:
             print("Rolando os dados novamente...")
             dadosSorteados = [] # Limpa a lista contendo dados sorteados
+        return dadosSorteados, listaDados, tiros, cerebros, passos
     fimTurno()        
