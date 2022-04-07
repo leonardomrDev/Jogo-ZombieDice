@@ -178,6 +178,24 @@ while True:
         print("TIROS: {}".format(tiros)) # UTILIZA VALOR DO CONTADOR ATUALIZADO ANTERIORMENTE PARA O PLACAR
 
         time.sleep(0.5)
+        if tiros >= 3:
+            print("\n")
+            time.sleep(0.5)
+            print("########## FIM DE JOGO! ##########")
+            print("\n")
+            time.sleep(0.5)
+            print("O jogador {} recebeu 3 ou mais tiros e perdeu a partida!".format(jogador))
+            exit()
+        elif cerebros >= 3:
+            print("\n")
+            time.sleep(0.5)
+            print("########## FIM DE JOGO! ##########")
+            print("\n")
+            time.sleep(0.5)
+            print("O jogador {} comeu 3 ou mais cérebros e venceu a partida!".format(jogador))
+            exit()
+        else:
+            pass
 
         print("\n")
     score()
@@ -193,7 +211,6 @@ while True:
     # Ele reseta o valor do contador de placar e roda para o próximo jogador.
     def fimTurno():
         global jogadorAtual, nrojogadores, dadosSorteados, listaDados, listaDados_original, tiros, cerebros, passos
-        global jogadorAtual
         if continuarTurno == 'n':
             jogadorAtual = jogadorAtual + 1
             dadosSorteados = []
@@ -206,7 +223,7 @@ while True:
             if jogadorAtual == nrojogadores:
                 print("FIM DE JOGO!")
                 print("SCORE FINAL: {}".format(jogadores))
-                quit
+                exit()
         # Condicional Else para caso a resposta seja sim
         # Rodar o jogo novamente para o mesmo jogador.
         else:
