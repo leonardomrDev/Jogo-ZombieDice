@@ -209,8 +209,8 @@ while True:
 
     # Condicional para caso a escolha do input seja não,
     # Ele reseta o valor do contador de placar e roda para o próximo jogador.
-    def fimTurno():
-        global jogadorAtual, nrojogadores, dadosSorteados, listaDados, listaDados_original, tiros, cerebros, passos
+    def fimTurno(jogadorAtual, nrojogadores):
+        global dadosSorteados, listaDados, listaDados_original, tiros, cerebros, passos
         if continuarTurno == 'n':
             jogadorAtual = jogadorAtual + 1
             dadosSorteados = []
@@ -228,6 +228,5 @@ while True:
         # Rodar o jogo novamente para o mesmo jogador.
         else:
             print("Rolando os dados novamente...")
-            dadosSorteados = [] # Limpa a lista contendo dados sorteados
-        return dadosSorteados, listaDados, tiros, cerebros, passos
-    fimTurno()        
+            dadosSorteados = [] # Limpa a lista contendo dados sorteados 
+    fimTurno(jogadorAtual, nrojogadores)        
